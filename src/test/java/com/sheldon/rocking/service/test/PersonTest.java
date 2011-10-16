@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.sheldon.rocking.service.Person;
+import com.sheldon.rocking.service.dataobject.Person;
 
 public class PersonTest {
 

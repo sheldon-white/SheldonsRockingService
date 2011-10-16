@@ -18,14 +18,14 @@
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
     <!-- Spring manage ServiceBean -->
-    <bean id="personServiceImpl" class="com.sheldon.rocking.service.PersonServiceImpl" >
+    <bean id="rockingServiceImpl" class="com.sheldon.rocking.service.RockingServiceImpl" >
             <property name="courseDao" ref="courseDao" />
 	</bean>
 	
     <bean id="courseDao" class="com.sheldon.rocking.service.dao.JpaCourseDao" />
 	
     <!-- JAX-WS Service Endpoint -->    
-    <jaxws:endpoint id="personService" implementor="#personServiceImpl" address="/personService" />
+    <jaxws:endpoint id="rockingService" implementor="#rockingServiceImpl" address="/rockingService" />
 <!--   <context:annotation-config/>
 	<context:component-scan base-package="com.sheldon.rocking.service"/>
 	<aop:aspectj-autoproxy/> 

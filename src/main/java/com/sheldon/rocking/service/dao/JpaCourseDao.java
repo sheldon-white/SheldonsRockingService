@@ -11,7 +11,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sheldon.rocking.service.course.Course;
+import com.sheldon.rocking.service.dataobject.Course;
 
 
 

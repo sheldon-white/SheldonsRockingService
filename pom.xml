@@ -50,7 +50,7 @@
 						<id>process-classes</id>
 						<phase>process-classes</phase>
 						<configuration>
-							<className>com.sheldon.rocking.service.PersonService</className>
+							<className>com.sheldon.rocking.service.RockingService</className>
 							<genWsdl>true</genWsdl>
 							<verbose>true</verbose>
 						</configuration>
