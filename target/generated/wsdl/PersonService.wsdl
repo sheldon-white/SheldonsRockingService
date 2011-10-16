@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PersonServiceService" targetNamespace="http://service.rocking.sheldon.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.rocking.sheldon.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.rocking.sheldon.com/" elementFormDefault="unqualified" targetNamespace="http://service.rocking.sheldon.com/" version="1.0">
+<xs:element name="findCourse" type="tns:findCourse"/>
+<xs:element name="findCourseResponse" type="tns:findCourseResponse"/>
+<xs:element name="greetPerson" type="tns:greetPerson"/>
+<xs:element name="greetPersonResponse" type="tns:greetPersonResponse"/>
+<xs:complexType name="greetPerson">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="greetPersonResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="findCourse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="findCourseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:course"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="course">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="beginDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="endDate" type="xs:dateTime"/>
+      <xs:element name="fee" type="xs:int"/>
+      <xs:element minOccurs="0" name="id" type="xs:long"/>
+      <xs:element minOccurs="0" name="title" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="greetPersonResponse">
+    <wsdl:part name="parameters" element="tns:greetPersonResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findCourse">
+    <wsdl:part name="parameters" element="tns:findCourse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="greetPerson">
+    <wsdl:part name="parameters" element="tns:greetPerson">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findCourseResponse">
+    <wsdl:part name="parameters" element="tns:findCourseResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PersonService">
+    <wsdl:operation name="greetPerson">
+      <wsdl:input name="greetPerson" message="tns:greetPerson">
+    </wsdl:input>
+      <wsdl:output name="greetPersonResponse" message="tns:greetPersonResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCourse">
+      <wsdl:input name="findCourse" message="tns:findCourse">
+    </wsdl:input>
+      <wsdl:output name="findCourseResponse" message="tns:findCourseResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PersonServiceServiceSoapBinding" type="tns:PersonService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="greetPerson">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="greetPerson">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="greetPersonResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findCourse">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="findCourse">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findCourseResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PersonServiceService">
+    <wsdl:port name="PersonServicePort" binding="tns:PersonServiceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/PersonServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
