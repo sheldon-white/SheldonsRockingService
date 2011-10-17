@@ -17,7 +17,15 @@
     <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-    <!-- Spring manage ServiceBean -->
+	
+    <context:annotation-config />
+    <tx:annotation-driven />
+    <aop:aspectj-autoproxy/>
+    
+    
+    <!-- JAX-WS Service Endpoint -->    
+    <jaxws:endpoint id="rockingService" implementor="#rockingServiceImpl" address="/rockingService" />
+    
     <bean id="rockingServiceImpl" class="com.sheldon.rocking.service.RockingServiceImpl" >
             <property name="courseDao" ref="courseDao" />
             <property name="studentDao" ref="studentDao" />
@@ -30,22 +38,9 @@
 	
     <bean id="studentCourseDao" class="com.sheldon.rocking.service.dao.JpaStudentCourseDao" />
 	
-    <!-- JAX-WS Service Endpoint -->    
-    <jaxws:endpoint id="rockingService" implementor="#rockingServiceImpl" address="/rockingService" />
-<!--   <context:annotation-config/>
-	<context:component-scan base-package="com.sheldon.rocking.service"/>
-	<aop:aspectj-autoproxy/> 
-	-->
-	<bean id="ExampleAspect" class="com.sheldon.rocking.service.ExampleAspect">
-   <!-- configure properties of aspect here as normal -->
-	</bean>   
+	<!-- <bean id="ExampleAspect" class="com.sheldon.rocking.service.ExampleAspect"/> -->
 	
-	
-	<!-- grafted on from dataaccess project -->
-	
-    <context:annotation-config />
-
-    <tx:annotation-driven />
+	<bean id="timingAspect" class="com.sheldon.rocking.service.TimingAspect" />
 
     <bean id="dataSource"
         class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -77,5 +72,6 @@
     </bean>
 
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
 	
 </beans>

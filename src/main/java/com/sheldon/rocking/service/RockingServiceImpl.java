@@ -1,6 +1,5 @@
 package com.sheldon.rocking.service;
 
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import com.sheldon.rocking.service.dao.CourseDao;
@@ -16,6 +15,7 @@ import com.sheldon.rocking.service.response.StudentResponse;
 import com.sheldon.rocking.service.response.StudentsResponse;
 
 @WebService(endpointInterface = "com.sheldon.rocking.service.RockingService")
+@Timed
 public class RockingServiceImpl implements RockingService {
 
 	private CourseDao courseDao = null;
