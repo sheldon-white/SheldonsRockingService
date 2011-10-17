@@ -11,7 +11,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sheldon.rocking.service.dataobject.Course;
+import com.sheldon.rocking.service.dao.entity.Course;
 
 
 
@@ -25,8 +25,9 @@ public class JpaCourseDao implements CourseDao {
     private EntityManager entityManager;
 
     @Transactional
-    public void store(Course course) {
-        entityManager.merge(course);
+    public Course store(Course course) {
+        Course managedCourse = entityManager.merge(course);
+        return managedCourse;
     }
 
     @Transactional

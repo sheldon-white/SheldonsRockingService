@@ -20,9 +20,15 @@
     <!-- Spring manage ServiceBean -->
     <bean id="rockingServiceImpl" class="com.sheldon.rocking.service.RockingServiceImpl" >
             <property name="courseDao" ref="courseDao" />
+            <property name="studentDao" ref="studentDao" />
+            <property name="studentCourseDao" ref="studentCourseDao" />
 	</bean>
 	
     <bean id="courseDao" class="com.sheldon.rocking.service.dao.JpaCourseDao" />
+    
+    <bean id="studentDao" class="com.sheldon.rocking.service.dao.JpaStudentDao" />
+	
+    <bean id="studentCourseDao" class="com.sheldon.rocking.service.dao.JpaStudentCourseDao" />
 	
     <!-- JAX-WS Service Endpoint -->    
     <jaxws:endpoint id="rockingService" implementor="#rockingServiceImpl" address="/rockingService" />

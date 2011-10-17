@@ -16,15 +16,5 @@ public class RockingServiceImplTest {
     @Before
     public void setUp() {
         service = new RockingServiceImpl();
-    }
-    
-    @Test
-    public void testGreetPerson() {
-        String expected = "Hello World!";
-        
-        String actual = service.greetPerson("World");
-        
-        assertEquals(expected, actual);
-    }
-    
+    }    
 }

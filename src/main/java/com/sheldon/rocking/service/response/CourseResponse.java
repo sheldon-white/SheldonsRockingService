@@ -1,32 +1,29 @@
 package com.sheldon.rocking.service.response;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.sheldon.rocking.service.dao.entity.Course;
 
-public class CoursesResponse {
+public class CourseResponse {
 
-    @XmlElementWrapper(name = "courses")
     @XmlElement(required = true, name = "course")
-    private List<Course> courses;
+    private Course course;
 
-    public CoursesResponse() {
+    public CourseResponse() {
     	
     }
     
-    public CoursesResponse(List<Course> courses) {
-    	this.courses = courses;
+    public CourseResponse(Course course) {
+    	this.course = course;
     }
     
 //	public List<Course> getCourses() {
 //		return courses;
 //	}
 
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 	
 }
