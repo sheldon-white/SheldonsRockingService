@@ -17,10 +17,6 @@ public class StudentResponse {
     public StudentResponse(Student student) {
     	this.student = student;
     }
-    
-//	public List<Student> getStudents() {
-//		return Students;
-//	}
 
 	public void setStudent(Student student) {
 		this.student = student;

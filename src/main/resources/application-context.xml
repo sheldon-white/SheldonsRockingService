@@ -29,12 +29,15 @@
     <bean id="rockingServiceImpl" class="com.sheldon.rocking.service.RockingServiceImpl" >
             <property name="courseDao" ref="courseDao" />
             <property name="studentDao" ref="studentDao" />
+            <property name="teacherDao" ref="teacherDao" />
             <property name="studentCourseDao" ref="studentCourseDao" />
 	</bean>
 	
     <bean id="courseDao" class="com.sheldon.rocking.service.dao.JpaCourseDao" />
     
     <bean id="studentDao" class="com.sheldon.rocking.service.dao.JpaStudentDao" />
+	
+    <bean id="teacherDao" class="com.sheldon.rocking.service.dao.JpaTeacherDao" />
 	
     <bean id="studentCourseDao" class="com.sheldon.rocking.service.dao.JpaStudentCourseDao" />
 	

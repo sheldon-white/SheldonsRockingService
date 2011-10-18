@@ -3,6 +3,7 @@ package com.sheldon.rocking.service.dao.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -48,6 +50,10 @@ public class Course {
     @Column(name = "fee")
     private int fee;
 
+    @XmlElement(required = true, name = "teacher")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="teacher_id")
+    private Teacher teacher;
 
     public Course() {}
 
@@ -104,5 +110,13 @@ public class Course {
 
 	public void setCourseCode(String courseCode) {
 		this.courseCode = courseCode;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 }

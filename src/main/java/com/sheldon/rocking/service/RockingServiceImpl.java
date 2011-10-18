@@ -5,14 +5,18 @@ import javax.jws.WebService;
 import com.sheldon.rocking.service.dao.CourseDao;
 import com.sheldon.rocking.service.dao.StudentCourseDao;
 import com.sheldon.rocking.service.dao.StudentDao;
+import com.sheldon.rocking.service.dao.TeacherDao;
 import com.sheldon.rocking.service.dao.entity.Course;
 import com.sheldon.rocking.service.dao.entity.Student;
 import com.sheldon.rocking.service.dao.entity.StudentCourse;
+import com.sheldon.rocking.service.dao.entity.Teacher;
 import com.sheldon.rocking.service.response.AssignmentResponse;
 import com.sheldon.rocking.service.response.CourseResponse;
 import com.sheldon.rocking.service.response.CoursesResponse;
 import com.sheldon.rocking.service.response.StudentResponse;
 import com.sheldon.rocking.service.response.StudentsResponse;
+import com.sheldon.rocking.service.response.TeacherResponse;
+import com.sheldon.rocking.service.response.TeachersResponse;
 
 @WebService(endpointInterface = "com.sheldon.rocking.service.RockingService")
 @Timed
@@ -20,6 +24,7 @@ public class RockingServiceImpl implements RockingService {
 
 	private CourseDao courseDao = null;
 	private StudentDao studentDao = null;
+	private TeacherDao teacherDao = null;
 	private StudentCourseDao studentCourseDao = null;
 	
     public Course findCourse(Long courseId) {
@@ -34,6 +39,12 @@ public class RockingServiceImpl implements RockingService {
         return student;
     }
 
+    public Teacher findTeacher(Long teacherId) {
+    	Teacher teacher = teacherDao.findById(teacherId);
+
+        return teacher;
+    }
+
     public CourseResponse addCourse(Course course) {
     	course.setCourseId(null);
     	Course newCourse = courseDao.store(course);
@@ -46,6 +57,12 @@ public class RockingServiceImpl implements RockingService {
     	return new StudentResponse(newStudent);
     }
     
+    public TeacherResponse addTeacher(Teacher teacher) {
+    	teacher.setTeacherId(null);
+    	Teacher newTeacher = teacherDao.store(teacher);
+    	return new TeacherResponse(newTeacher);
+    }
+
     public AssignmentResponse enrollStudent(Student student, Course course) {
     	StudentCourse studentCourse = new StudentCourse(student, course);
     	StudentCourse newStudentCourse = studentCourseDao.store(studentCourse);
@@ -58,6 +75,13 @@ public class RockingServiceImpl implements RockingService {
     	return new AssignmentResponse(newStudentCourse.getId());
     }
 
+    public void assignTeacherToCourseById(Long teacherId, Long courseId) {
+    	Teacher teacher = findTeacher(teacherId);
+    	Course course = findCourse(courseId);
+    	course.setTeacher(teacher);
+    	courseDao.store(course);
+    }
+
     public CoursesResponse getAllCourses()
     {
     	return new CoursesResponse(courseDao.findAll());
@@ -66,6 +90,11 @@ public class RockingServiceImpl implements RockingService {
     public StudentsResponse getAllStudents()
     {
     	return new StudentsResponse(studentDao.findAll());
+    }
+    
+    public TeachersResponse getAllTeachers()
+    {
+    	return new TeachersResponse(teacherDao.findAll());
     }
     
     public StudentsResponse findStudentsForCourse(Long courseId) {
@@ -100,4 +129,11 @@ public class RockingServiceImpl implements RockingService {
 		this.studentCourseDao = studentCourseDao;
 	}
 
+	public TeacherDao getTeacherDao() {
+		return teacherDao;
+	}
+
+	public void setTeacherDao(TeacherDao teacherDao) {
+		this.teacherDao = teacherDao;
+	}
 }

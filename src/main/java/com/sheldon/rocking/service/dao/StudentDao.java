@@ -2,7 +2,6 @@ package com.sheldon.rocking.service.dao;
 
 import java.util.List;
 
-import com.sheldon.rocking.service.dao.entity.Course;
 import com.sheldon.rocking.service.dao.entity.Student;
 
 public interface StudentDao {

@@ -2,10 +2,6 @@ package com.sheldon.rocking.service.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import com.sheldon.rocking.service.dao.entity.Course;
 import com.sheldon.rocking.service.dao.entity.Student;
 import com.sheldon.rocking.service.dao.entity.StudentCourse;
