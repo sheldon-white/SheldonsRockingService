@@ -27,22 +27,28 @@ public class RockingServiceImpl implements RockingService {
 	private TeacherDao teacherDao = null;
 	private StudentCourseDao studentCourseDao = null;
 	
-    public Course findCourse(Long courseId) {
-        Course course = courseDao.findById(courseId);
-
-        return course;
+    public CourseResponse findCourse(String courseCode) {
+        return new CourseResponse(_findCourse(courseCode));
     }
 
-    public Student findStudent(Long studentId) {
-    	Student student = studentDao.findById(studentId);
-
-        return student;
+    private Course _findCourse(String courseCode) {
+    	return courseDao.find(courseCode);
+    }
+    
+    public StudentResponse findStudent(String studentCode) {
+        return new StudentResponse(_findStudent(studentCode));
     }
 
-    public Teacher findTeacher(Long teacherId) {
-    	Teacher teacher = teacherDao.findById(teacherId);
+    private Student _findStudent(String studentCode) {
+    	return studentDao.find(studentCode);
+    }
 
-        return teacher;
+    public TeacherResponse findTeacher(String teacherCode) {
+        return new TeacherResponse(_findTeacher(teacherCode));
+    }
+
+    private Teacher _findTeacher(String teacherCode) {
+    	return teacherDao.find(teacherCode);
     }
 
     public CourseResponse addCourse(Course course) {
@@ -63,21 +69,15 @@ public class RockingServiceImpl implements RockingService {
     	return new TeacherResponse(newTeacher);
     }
 
-    public AssignmentResponse enrollStudent(Student student, Course course) {
-    	StudentCourse studentCourse = new StudentCourse(student, course);
+    public AssignmentResponse enrollStudent(String studentCode, String courseCode) {
+    	StudentCourse studentCourse = new StudentCourse(_findStudent(studentCode), _findCourse(courseCode));
     	StudentCourse newStudentCourse = studentCourseDao.store(studentCourse);
-    	return new AssignmentResponse(newStudentCourse.getId());
+    	return new AssignmentResponse();
     }
 
-    public AssignmentResponse enrollStudentById(Long studentId, Long courseId) {
-    	StudentCourse studentCourse = new StudentCourse(findStudent(studentId), findCourse(courseId));
-    	StudentCourse newStudentCourse = studentCourseDao.store(studentCourse);
-    	return new AssignmentResponse(newStudentCourse.getId());
-    }
-
-    public void assignTeacherToCourseById(Long teacherId, Long courseId) {
-    	Teacher teacher = findTeacher(teacherId);
-    	Course course = findCourse(courseId);
+    public void assignTeacherToCourse(String teacherCode, String courseCode) {
+    	Teacher teacher = _findTeacher(teacherCode);
+    	Course course = _findCourse(courseCode);
     	course.setTeacher(teacher);
     	courseDao.store(course);
     }
@@ -97,12 +97,12 @@ public class RockingServiceImpl implements RockingService {
     	return new TeachersResponse(teacherDao.findAll());
     }
     
-    public StudentsResponse findStudentsForCourse(Long courseId) {
-    	return new StudentsResponse(studentCourseDao.findStudentsForCourse(courseId));  	
+    public StudentsResponse findStudentsForCourse(String courseCode) {
+    	return new StudentsResponse(studentCourseDao.findStudentsForCourse(courseCode));  	
     }
 
-    public CoursesResponse findCoursesForStudent(Long studentId) {
-    	return new CoursesResponse(studentCourseDao.findCoursesForStudent(studentId));  	
+    public CoursesResponse findCoursesForStudent(String studentCode) {
+    	return new CoursesResponse(studentCourseDao.findCoursesForStudent(studentCode));  	
     }
 
 	public CourseDao getCourseDao() {

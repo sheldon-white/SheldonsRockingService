@@ -7,7 +7,7 @@ import com.sheldon.rocking.service.dao.entity.Student;
 public interface StudentDao {
 
     public Student store(Student student);
-    public void delete(Long studentId);
-    public Student findById(Long studentId);
+    public void delete(String studentCode);
+    public Student find(String studentCode);
     public List<Student> findAll();
 }

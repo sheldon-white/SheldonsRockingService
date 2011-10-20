@@ -12,6 +12,6 @@ public interface StudentCourseDao {
     public void delete(Long studentCourseId);
     public StudentCourse findById(Long studentCourseId);
     public List<StudentCourse> findAll();
-    public List<Student> findStudentsForCourse(Long courseId);
-    public List<Course> findCoursesForStudent(Long studentId);
+    public List<Student> findStudentsForCourse(String courseCode);
+    public List<Course> findCoursesForStudent(String courseCode);
 }

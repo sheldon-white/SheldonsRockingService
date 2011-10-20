@@ -18,6 +18,8 @@ import com.sheldon.rocking.service.dao.entity.Teacher;
 @Repository("TeacherDao")
 public class JpaTeacherDao implements TeacherDao {
 
+	static final String findSQL = "SELECT t FROM Teacher t where t.teacherCode = ?";
+	
     @PersistenceUnit
     private EntityManagerFactory entityManagerFactory;
 
@@ -31,14 +33,20 @@ public class JpaTeacherDao implements TeacherDao {
     }
 
     @Transactional
-    public void delete(Long TeacherId) {
-        Teacher Teacher = entityManager.find(Teacher.class, TeacherId);
-        entityManager.remove(Teacher);
+    public void delete(String teacherCode) {
+        Query query = entityManager.createQuery(findSQL);
+        query.setParameter(1, teacherCode);
+        Teacher teacher = (Teacher) query.getSingleResult();
+        entityManager.remove(teacher);
     }
 
     @Transactional(readOnly = true)
-    public Teacher findById(Long TeacherId) {
-        return entityManager.find(Teacher.class, TeacherId);
+    public Teacher find(String teacherCode) {
+        Query query = entityManager.createQuery(findSQL);
+        query.setParameter(1, teacherCode);
+        Teacher teacher = (Teacher) query.getSingleResult();
+
+    	return teacher;
     }
 
     @Transactional(readOnly = true)

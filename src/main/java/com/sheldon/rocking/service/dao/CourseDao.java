@@ -7,7 +7,7 @@ import com.sheldon.rocking.service.dao.entity.Course;
 public interface CourseDao {
 
     public Course store(Course course);
-    public void delete(Long courseId);
-    public Course findById(Long courseId);
+    public void delete(String courseCode);
+    public Course find(String courseCode);
     public List<Course> findAll();
 }

@@ -12,11 +12,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sheldon.rocking.service.dao.entity.Course;
+import com.sheldon.rocking.service.dao.entity.Student;
 
 
 
 @Repository("courseDao")
 public class JpaCourseDao implements CourseDao {
+
+	static final String findSQL = "SELECT c FROM Course c where c.courseCode = ?";
 
     @PersistenceUnit
     private EntityManagerFactory entityManagerFactory;
@@ -31,14 +34,20 @@ public class JpaCourseDao implements CourseDao {
     }
 
     @Transactional
-    public void delete(Long courseId) {
-        Course course = entityManager.find(Course.class, courseId);
+    public void delete(String courseCode) {
+        Query query = entityManager.createQuery(findSQL);
+        query.setParameter(1, courseCode);
+        Course course = (Course) query.getSingleResult();
         entityManager.remove(course);
     }
 
     @Transactional(readOnly = true)
-    public Course findById(Long courseId) {
-        return entityManager.find(Course.class, courseId);
+    public Course find(String courseCode) {
+        Query query = entityManager.createQuery(findSQL);
+        query.setParameter(1, courseCode);
+        Course course = (Course) query.getSingleResult();
+
+    	return course;
     }
 
     @Transactional(readOnly = true)

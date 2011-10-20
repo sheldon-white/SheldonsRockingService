@@ -43,26 +43,29 @@ public class JpaStudentCourseDao implements StudentCourseDao {
         return entityManager.find(StudentCourse.class, studentCourseId);
     }
 
-    @Transactional(readOnly = true)
+    @SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
     public List<StudentCourse> findAll() {
         Query query = entityManager.createQuery("from StudentCourse");
-        return query.getResultList();
+        return (List<StudentCourse>)query.getResultList();
     }
     
     @Transactional(readOnly = true)
-    public List<Student> findStudentsForCourse(Long courseId) {
-        Query query = entityManager.createQuery("SELECT s FROM Student s, StudentCourse sc WHERE sc.student = s and sc.course.id = ?");
-        query.setParameter(1, courseId);
-        List<Student> results = (List<Student>) query.getResultList();
+    public List<Student> findStudentsForCourse(String courseCode) {
+        Query query = entityManager.createQuery("SELECT s FROM Student s, StudentCourse sc WHERE sc.student = s and sc.course.courseCode = ?");
+        query.setParameter(1, courseCode);
+        @SuppressWarnings("unchecked")
+		List<Student> results = (List<Student>) query.getResultList();
         
         return results;
     }
 
     @Transactional(readOnly = true)
-    public List<Course> findCoursesForStudent(Long studentId) {
-        Query query = entityManager.createQuery("SELECT c FROM Course c, StudentCourse sc WHERE sc.course = c and sc.student.id = ?");
-        query.setParameter(1, studentId);
-        List<Course> results = (List<Course>) query.getResultList();
+    public List<Course> findCoursesForStudent(String studentCode) {
+        Query query = entityManager.createQuery("SELECT c FROM Course c, StudentCourse sc WHERE sc.course = c and sc.student.studentCode = ?");
+        query.setParameter(1, studentCode);
+        @SuppressWarnings("unchecked")
+		List<Course> results = (List<Course>) query.getResultList();
         
         return results;
     }

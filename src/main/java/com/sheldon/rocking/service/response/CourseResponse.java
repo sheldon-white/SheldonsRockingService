@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.sheldon.rocking.service.dao.entity.Course;
 
-public class CourseResponse {
+public class CourseResponse extends BaseResponse {
 
     @XmlElement(required = true, name = "course")
     private Course course;

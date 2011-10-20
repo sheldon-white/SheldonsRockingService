@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import com.sheldon.rocking.service.dao.entity.Student;
 
-public class AssignmentResponse {
+public class AssignmentResponse extends BaseResponse {
 
     @SuppressWarnings("unused")
 	@XmlElement(required = true, name = "assignment_id")

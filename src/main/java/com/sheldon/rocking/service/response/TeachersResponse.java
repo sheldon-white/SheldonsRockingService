@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.sheldon.rocking.service.dao.entity.Teacher;
 
-public class TeachersResponse {
+public class TeachersResponse extends BaseResponse {
 
     @SuppressWarnings("unused")
 	@XmlElementWrapper(name = "teachers")

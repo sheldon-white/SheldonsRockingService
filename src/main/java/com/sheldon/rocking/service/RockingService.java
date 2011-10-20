@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 
 import com.sheldon.rocking.service.dao.entity.Course;
 import com.sheldon.rocking.service.dao.entity.Student;
@@ -20,11 +21,14 @@ import com.sheldon.rocking.service.response.TeachersResponse;
 @WebService
 public interface RockingService {
 
-	@XmlElement(required = true, name = "course_id")
-    public Course findCourse(@WebParam(name = "course_id") Long courseId);
+	@XmlElement(required = true, name = "course_code")
+    public CourseResponse findCourse(@WebParam(name = "course_code") String courseCode);
     
-	@XmlElement(required = true, name = "student_id")
-    public Student findStudent(@WebParam(name = "student_id") Long studentId);
+	@XmlElement(required = true, name = "student_code")
+    public StudentResponse findStudent(@WebParam(name = "student_code") String studentCode);
+
+	@XmlElement(required = true, name = "teacher_code")
+    public TeacherResponse findTeacher(@WebParam(name = "teacher_code") String teacherCode);
 
 	public CourseResponse addCourse(@WebParam(name = "course") Course course);
 
@@ -32,17 +36,18 @@ public interface RockingService {
     
     public TeacherResponse addTeacher(@WebParam(name = "teacher") Teacher teacher);
     
-    public StudentsResponse findStudentsForCourse(@WebParam(name = "course_id") Long courseId);
+	@XmlElement(required = true, name = "course_code")
+    public StudentsResponse findStudentsForCourse(@WebParam(name = "course_code") String courseCode);
     
-    public CoursesResponse findCoursesForStudent(@WebParam(name = "student_id") Long studentId);
+	@XmlElement(required = true, name = "student_code")
+    public CoursesResponse findCoursesForStudent(@WebParam(name = "student_code") String studentCode);
     
-    public AssignmentResponse enrollStudent(@WebParam(name = "student") Student student,
-    										@WebParam(name = "course") Course course);
+    @XmlElements({@XmlElement(required = true, name = "student_code"), @XmlElement(required = true, name = "course_code")})
+    public AssignmentResponse enrollStudent(@WebParam(name = "student_code") String studentCode,
+    											@WebParam(name = "course_code") String courseCode);
 
-    public AssignmentResponse enrollStudentById(@WebParam(name = "student_id") Long studentId,
-    											@WebParam(name = "course_id") Long courseId);
-
-    public void assignTeacherToCourseById(@WebParam(name = "teacher_id") Long teacherId, @WebParam(name = "course_id") Long courseId);
+    @XmlElements({@XmlElement(required = true, name = "teacher_code"), @XmlElement(required = true, name = "course_code")})
+    public void assignTeacherToCourse(@WebParam(name = "teacher_code") String teacherCode, @WebParam(name = "course_code") String courseCode);
 
     public CoursesResponse getAllCourses();
     

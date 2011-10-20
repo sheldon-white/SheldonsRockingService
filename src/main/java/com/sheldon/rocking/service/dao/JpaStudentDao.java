@@ -11,12 +11,15 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sheldon.rocking.service.dao.entity.Course;
 import com.sheldon.rocking.service.dao.entity.Student;
 
 
 
 @Repository("StudentDao")
 public class JpaStudentDao implements StudentDao {
+
+	static final String findSQL = "SELECT s FROM Student s where s.studentCode = ?";
 
     @PersistenceUnit
     private EntityManagerFactory entityManagerFactory;
@@ -31,14 +34,20 @@ public class JpaStudentDao implements StudentDao {
     }
 
     @Transactional
-    public void delete(Long StudentId) {
-        Student Student = entityManager.find(Student.class, StudentId);
-        entityManager.remove(Student);
+    public void delete(String studentCode) {
+        Query query = entityManager.createQuery(findSQL);
+        query.setParameter(1, studentCode);
+        Student student = (Student) query.getSingleResult();
+        entityManager.remove(student);
     }
 
     @Transactional(readOnly = true)
-    public Student findById(Long StudentId) {
-        return entityManager.find(Student.class, StudentId);
+    public Student find(String studentCode) {
+        Query query = entityManager.createQuery(findSQL);
+        query.setParameter(1, studentCode);
+        Student student = (Student) query.getSingleResult();
+
+    	return student;
     }
 
     @Transactional(readOnly = true)

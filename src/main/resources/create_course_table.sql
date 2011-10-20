@@ -7,9 +7,9 @@ CREATE TABLE `course` (
   `end_date` datetime DEFAULT NULL,
   `fee` int(11) DEFAULT NULL,
   `title` varchar(100) NOT NULL,
-  `teacher_id` bigint(20) NOT NULL,
+  `teacher_id` bigint(20) NULL,
   PRIMARY KEY (`course_id`),
-  Foreign Key (teacher_id) references teacher(teacher_id)
+  Foreign Key (teacher_id) references teacher(teacher_id),
   UNIQUE(course_code)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1$$
 

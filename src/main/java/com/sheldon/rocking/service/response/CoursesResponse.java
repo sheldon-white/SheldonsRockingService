@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 import com.sheldon.rocking.service.dao.entity.Course;
 
-public class CoursesResponse {
+public class CoursesResponse extends BaseResponse {
 
     @XmlElementWrapper(name = "courses")
     @XmlElement(required = true, name = "course")

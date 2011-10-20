@@ -7,7 +7,7 @@ import com.sheldon.rocking.service.dao.entity.Teacher;
 public interface TeacherDao {
 
     public Teacher store(Teacher teacher);
-    public void delete(Long teacherId);
-    public Teacher findById(Long teacherId);
+    public void delete(String teacherCode);
+    public Teacher find(String teacherCode);
     public List<Teacher> findAll();
 }
